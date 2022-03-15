@@ -49,5 +49,6 @@ Each patch will either cooperate (blue) or defect (red) in the initial start of 
 
 In the subsequent round, the patch will set its old-cooperate to be the strategy it used in the previous round. For the upcoming round, the patch will adopt the strategy of one of its neighbors that scored the highest in the previous round.
 
-If a patch is blue, then the patch cooperated in the previous and current round. If a patch is red, then the patch defected in the previous iteration as well as the current round. If a patch is green, then the patch cooperated in the previous round but defected in the current round. If a patch is yellow, then the patch defected in the previous round but cooperated in the current round.
+
+WHAT ABOUT MANIPULATION CAPACITY?
 
