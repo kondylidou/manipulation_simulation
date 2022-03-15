@@ -36,21 +36,18 @@ Payoff Matrix
 
 In the iterated prisoner’s dilemma we will add one more factor, manipulation. As in Machiavelli's game theory the world is separated in manipulators and manipulated players. Some criminals are now able to manipulate the rest to cooperate or defect. So two more parameters will be added, the initial percentage of manipulators and the manipulative capacity of each individual.
 
-## How it works
+## How to use it
 
 Decide what percentage of patches should cooperate and what amount should be able to manipulate at the initial stage of the simulation and change the INITIAL-COOPERATION and the INITIAL-MANIPULATION sliders to match what you would like. Next, determine the DEFECTION-AWARD multiple (mentioned as alpha in the payoff matrix above) for defecting or not cooperating. The Defection-Award multiple varies from range of 0 to 3. Furthermore, determine the MANIPULATION-CAPACITY multiple for manipulation other individuals. The Manipulation-Capacity multiple varies from range of 0 to 3.  Note that red patches will defect and blue patches will cooperate. 
-Press START to make the patches interact with their eight neighboring patches. First, it is determined whether a patch is a manipulator or not. Then, they count the number of neighboring patches that are cooperating. If a patch is cooperating, then its score is number of neighboring patches that also cooperated. If a patch is defecting, then its score is the product of the number of neighboring patches who are cooperating and the Defection-Award multiple. If a patch is a manipulator, its trying to change its neighbors' state, so that it achieves the highest score.
-    Note: higher the score (amount of the benefit), the better.
+Press START to make the patches interact with their eight neighboring patches.
 
-what happens if a patch is manipulating ?
+## How it works
 
-HOW IT WORKS
+Each patch will either cooperate (blue) or defect (red) in the initial start of the model. First, it is determined whether a patch is a manipulator or not. At each cycle, each patch will interact with all of its 8 neighbors to determine the score for the interaction. Should a patch have cooperated, its score will be the number of neighbors that also cooperated. Should a patch defect, then the score for this patch will be the product of the Defection-Award multiple and the number of neighbors that cooperated (i.e. the patch has taken advantage of the patches that cooperated). If a patch is a manipulator, its trying to change its neighbors' state, so that it achieves the highest score.
 
-Each patch will either cooperate (blue) or defect (red) in the initial start of the model. At each cycle, each patch will interact with all of its 8 neighbors to determine the score for the interaction. Should a patch have cooperated, its score will be the number of neighbors that also cooperated. Should a patch defect, then the score for this patch will be the product of the Defection-Award multiple and the number of neighbors that cooperated (i.e. the patch has taken advantage of the patches that cooperated).
+ _Note: higher the score (amount of the benefit), the better._
 
-In the subsequent round, the patch will set its old-cooperate? to be the strategy it used in the previous round. For the upcoming round, the patch will adopt the strategy of one of its neighbors that scored the highest in the previous round.
+In the subsequent round, the patch will set its old-cooperate to be the strategy it used in the previous round. For the upcoming round, the patch will adopt the strategy of one of its neighbors that scored the highest in the previous round.
 
 If a patch is blue, then the patch cooperated in the previous and current round. If a patch is red, then the patch defected in the previous iteration as well as the current round. If a patch is green, then the patch cooperated in the previous round but defected in the current round. If a patch is yellow, then the patch defected in the previous round but cooperated in the current round.
-
-what happens if a patch is manipulating ?
 
