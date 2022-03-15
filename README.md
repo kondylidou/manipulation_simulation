@@ -18,8 +18,33 @@ Payoff Matrix
 
 |                  | **Cooperate**  | **Defect**    |
 | :---             |     :---:      |          ---: |
-| **Cooperate**    | (0.5, 0.5)     | (10, 0)       |
-| **Defect**       | (0, 10)        |  (5, 5)       |
+| **Cooperate**    | (0.5, 0.5)     | (0, 10)       |
+| **Defect**       | (10, 0)        |  (5, 5)       |
 
-## Classic Prisoner’s dilemma
+## Iterated Prisoner's Dilemma
+
+In an Iterated Prisoner's Dilemma where you have more than two players and multiple rounds, such as this one, the scoring is different. In this model, it is assumed that an increase in the number of people who cooperate will increase proportionately the benefit for each cooperating player (which would be a fine assumption, for example, in the sharing of knowledge). For those who do not cooperate, assume that their benefit is some factor (alpha) multiplied by the number of people who cooperate (that is, to continue the previous example, the non-cooperating players take knowledge from others but do not share any knowledge themselves). How much cooperation is incited is dependent on the factor multiple for not cooperating. Consequently, in an iterated prisoner's dilemma with multiple players, the dynamics of the evolution in cooperation may be observed.
+
+Payoff Matrix
+
+|                  | **Cooperate**  | **Defect**    |
+| :---             |     :---:      |          ---: |
+| **Cooperate**    | (1, 1)         | (0, alpha)    |
+| **Defect**       | (alpha, 0)     |  (0, 0)       |
+
+## Iterated Prisoner's Dilemma with Manipulation (Extended prisoner’s Dilemma)
+
+In the iterated prisoner’s dilemma we will add one more factor, manipulation. As in Machiavelli's game theory the world is separated in manipulators and manipulated players. Some criminals are now able to manipulate the rest to cooperate or defect. So two more parameters will be added, the initial percentage of manipulators and the manipulative capacity of each individual.
+
+## How it works
+
+Decide what percentage of patches should cooperate at the initial stage of the simulation and change the INITIAL-COOPERATION and the INITIAL-MANIPULATION sliders to match what you would like. Next, determine the DEFECTION-AWARD multiple (mentioned as alpha in the payoff matrix above) for defecting or not cooperating. The Defection-Award multiple varies from range of 0 to 3. Furthermore, determine the MANIPULATION-CAPACITY multiple for manipulation other individuals. The Manipulation-Capacity multiple varies from range of 0 to 3.  Note that red patches will defect and blue patches will cooperate. Press START to make the patches interact with their eight neighboring patches. First, they count the number of neighboring patches that are cooperating. If a patch is cooperating, then its score is number of neighboring patches that also cooperated. If a patch is defecting, then its score is the product of the number of neighboring patches who are cooperating and the Defection-Award multiple. 
+
+what happens if a patch is manipulating ?
+
+HOW IT WORKS
+
+Each patch will either cooperate (blue) or defect (red) in the initial start of the model. At each cycle, each patch will interact with all of its 8 neighbors to determine the score for the interaction. Should a patch have cooperated, its score will be the number of neighbors that also cooperated. Should a patch defect, then the score for this patch will be the product of the Defection-Award multiple and the number of neighbors that cooperated (i.e. the patch has taken advantage of the patches that cooperated).
+
+what happens if a patch is manipulating ?
 
