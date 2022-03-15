@@ -46,5 +46,9 @@ HOW IT WORKS
 
 Each patch will either cooperate (blue) or defect (red) in the initial start of the model. At each cycle, each patch will interact with all of its 8 neighbors to determine the score for the interaction. Should a patch have cooperated, its score will be the number of neighbors that also cooperated. Should a patch defect, then the score for this patch will be the product of the Defection-Award multiple and the number of neighbors that cooperated (i.e. the patch has taken advantage of the patches that cooperated).
 
+In the subsequent round, the patch will set its old-cooperate? to be the strategy it used in the previous round. For the upcoming round, the patch will adopt the strategy of one of its neighbors that scored the highest in the previous round.
+
+If a patch is blue, then the patch cooperated in the previous and current round. If a patch is red, then the patch defected in the previous iteration as well as the current round. If a patch is green, then the patch cooperated in the previous round but defected in the current round. If a patch is yellow, then the patch defected in the previous round but cooperated in the current round.
+
 what happens if a patch is manipulating ?
 
