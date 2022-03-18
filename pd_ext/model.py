@@ -17,11 +17,11 @@ class PdGrid(Model):
 
     # This dictionary holds the payoff for this agent,
     # keyed on: (my_move, other_move)
-
     payoff = {("C", "C"): 1, ("C", "D"): 0, ("D", "C"): 1.6, ("D", "D"): 0}
 
     def __init__(
-            self, width=50, height=50, schedule_type="Random", payoffs=None, seed=None
+            self, width=50, height=50, initial_cooperation=50, initial_manipulation=50, defection_award=1.6,
+            manipulation_capacity=50, schedule_type="Random", payoffs=None, seed=None
     ):
         """
         Create a new Spatial Prisoners' Dilemma Model.
@@ -31,6 +31,10 @@ class PdGrid(Model):
                            Determines the agent activation regime.
             payoffs: (optional) Dictionary of (move, neighbor_move) payoffs.
         """
+        self.initial_cooperation = initial_cooperation
+        self.initial_manipulation = initial_manipulation
+        self.defection_award = defection_award
+        self.manipulation_capacity = manipulation_capacity
         self.grid = SingleGrid(width, height, torus=True)
         self.schedule_type = schedule_type
         self.schedule = self.schedule_types[self.schedule_type](self)
