@@ -2,91 +2,62 @@
 
 This project is a computer simulation of a multi-agent extended prisoner’s dilemma using manipulation. The aim is to investigate if the outcome for all agents is better with or without the possibility of manipulation. 
 
-## Getting started
+## Classic Prisoner’s dilemma
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+One of the most prominently studied phenomena in Game Theory is the "Prisoner's Dilemma." The Prisoner's Dilemma, which was formulated by Melvin Drescher and Merrill Flood and named by Albert W. Tucker, is an example of a class of games called non-zero-sum games.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+In zero-sum games, total benefit to all players add up to zero, or in other words, each player can only benefit at the expense of other players (e.g. chess, football, poker --- one person can only win when the opponent loses). On the other hand, in non-zero-games, each person's benefit does not necessarily come at the expense of someone else. In many non-zero-sum situations, a person can benefit only when others benefit as well. Non-zero-sum situations exist where the supply of a resource is not fixed or limited in any way (e.g. knowledge, artwork, and trade). Prisoner's Dilemma, as a non-zero-sum game, demonstrates a conflict between rational individual behavior and the benefits of cooperation in certain situations. The classical prisoner's dilemma is as follows:
 
-## Add your files
+Two suspects are apprehended by the police. The police do have enough evidence to convict these two suspects. As a result, they separate the two, visit each of them, and offer both the same deal: "If you confess, and your accomplice remains silent, he goes to jail for 10 years and you can go free. If you both remain silent, only minor charges can be brought upon both of you and you guys get 6 months each. If you both confess, then each of you two gets 5 years."
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+Each suspect may reason as follows: "Either my partner confesses or not. If he does confess and I remain silent, I get 10 years while if I confess, I get 5 years. So, if my partner confesses, it is best that I confess and get only 5 years than 10 years in prison. If he didn't, then by confessing, I go free, whereby remaining silent, I get 6 months. Thus, if he didn't confess, it is best to confess, so that I can go free. Whether or not my partner confesses or not, it is best that I confess."
 
-```
-cd existing_repo
-git remote add origin https://gitlab2.cip.ifi.lmu.de/kondylidou/manipulation-simulation.git
-git branch -M main
-git push -uf origin main
-```
+In a non-iterated prisoner's dilemma, the two partners will never have to work together again. Both partners are thinking in the above manner and decide to confess. Consequently, they both receive 5 years in prison. If neither would have confessed, they would have only gotten 6 months each. The rational behavior paradoxically leads to a socially unbeneficial outcome.
 
-## Integrate with your tools
+Payoff Matrix
 
-- [ ] [Set up project integrations](https://gitlab2.cip.ifi.lmu.de/kondylidou/manipulation-simulation/-/settings/integrations)
+|                  | **Cooperate**  | **Defect**    |
+| :---             |     :---:      |          ---: |
+| **Cooperate**    | (0.5, 0.5)     | (0, 10)       |
+| **Defect**       | (10, 0)        |  (5, 5)       |
 
-## Collaborate with your team
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+(x, y) = x: your score, y: partner's score
+_Note: lower the score (number of years in prison), the better._
 
-## Test and Deploy
 
-Use the built-in continuous integration in GitLab.
+## Iterated Prisoner's Dilemma
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+In an Iterated Prisoner's Dilemma where you have more than two players and multiple rounds, such as this one, the scoring is different. In this model, it is assumed that an increase in the number of people who cooperate will increase proportionately the benefit for each cooperating player (which would be a fine assumption, for example, in the sharing of knowledge). For those who do not cooperate, assume that their benefit is some factor (alpha) multiplied by the number of people who cooperate (that is, to continue the previous example, the non-cooperating players take knowledge from others but do not share any knowledge themselves). How much cooperation is incited is dependent on the factor multiple for not cooperating. Consequently, in an iterated prisoner's dilemma with multiple players, the dynamics of the evolution in cooperation may be observed.
 
-***
+Payoff Matrix
 
-# Editing this README
+|                  | **Cooperate**  | **Defect**    |
+| :---             |     :---:      |          ---: |
+| **Cooperate**    | (1, 1)         | (0, alpha)    |
+| **Defect**       | (alpha, 0)     |  (0, 0)       |
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+(x, y) = x: your score, y: opponent's score
+_Note: higher the score (amount of the benefit), the better._
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
 
-## Name
-Choose a self-explaining name for your project.
+## Iterated Prisoner's Dilemma with Manipulation (Extended prisoner’s Dilemma)
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+In the iterated prisoner’s dilemma we will add one more factor, manipulation. As in Machiavelli's game theory the world is separated in manipulators and manipulated players. Some criminals are now able to manipulate the rest to cooperate or defect. So two more parameters will be added, the initial percentage of manipulators and the manipulative capacity of each individual.
+The manipulators are ofcourse individuals, who will gain something (in this example fewer years in jail) by changing the view of other players. Specifically, manipulators can only be the prisoners, who decided to defect. They want all of their 8 neighbors to remain silent, so that with the Defection-Award they achieve a score of 8*alpha. The manipulation capacity determines how many of their neighbors they are able to manipulate (if they have high or low Machiavellianism). If they achieve the highest score, their neighbors will follow in the next round and adopt their strategy.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## How it works
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+Each patch will either cooperate (blue) or defect (red) in the initial start of the model. First, it is determined whether a patch is a manipulator or not. At each cycle, each patch will interact with all of its 8 neighbors to determine the score for the interaction. Should a patch have cooperated, its score will be the number of neighbors that also cooperated. Should a patch defect, then the score for this patch will be the product of the Defection-Award multiple and the number of neighbors that cooperated (i.e. the patch has taken advantage of the patches that cooperated). If a patch is a manipulator, its trying to change its neighbors' state, so that it achieves the highest score.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+In the subsequent round, the patch will set its old-cooperate to be the strategy it used in the previous round. For the upcoming round, the patch will adopt the strategy of one of its neighbors that scored the highest in the previous round.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## How to use it
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+Decide what percentage of patches should cooperate and what amount should be able to manipulate at the initial stage of the simulation and change the INITIAL-COOPERATION and the INITIAL-MANIPULATION sliders to match what you would like. Next, determine the DEFECTION-AWARD multiple (mentioned as alpha in the payoff matrix above) for defecting or not cooperating. The Defection-Award multiple varies from range of 0 to 3. Furthermore, determine the MANIPULATION-CAPACITY for manipulation other individuals. Press START to make the patches interact with their eight neighboring patches.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+##Question
+Which is better? A wolrd where manipulators and manipulated exist following Machiavelli's perspective, or a world where every individual cooperates thinking about the common benefit following Aristotele's perspective?
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
