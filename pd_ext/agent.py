@@ -4,9 +4,11 @@ from mesa import Agent
 class PDAgent(Agent):
     """Agent member of the iterated, spatial prisoner's dilemma model."""
 
+
     def __init__(self, pos, model, starting_move=None):
         """
         Create a new Prisoner's Dilemma agent.
+
         Args:
             pos: (x, y) tuple of the agent's position.
             model: model instance
@@ -45,4 +47,4 @@ class PDAgent(Agent):
             moves = [neighbor.next_move for neighbor in neighbors]
         else:
             moves = [neighbor.move for neighbor in neighbors]
-        return sum(self.model.payoff[(self.move, move)] for move in moves)
+        return sum(self.model.update_payoff()[(self.move, move)] for move in moves)

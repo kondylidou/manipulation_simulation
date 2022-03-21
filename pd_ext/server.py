@@ -2,11 +2,11 @@ from mesa.visualization.ModularVisualization import ModularServer
 from mesa.visualization.modules import CanvasGrid, ChartModule
 from mesa.visualization.UserParam import UserSettableParameter
 
-from .portrayal import portrayPDAgent
-from .model import PdGrid
-
 
 # Make a world that is 50x50, on a 500x500 display.
+from pd_ext.model import PdGrid
+from pd_ext.portrayal import portrayPDAgent
+
 canvas_element = CanvasGrid(portrayPDAgent, 50, 50, 500, 500)
 chart = ChartModule([{"Label": "Cooperating_Agents", "Color": "Black"}], data_collector_name='datacollector')
 
