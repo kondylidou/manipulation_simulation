@@ -6,7 +6,7 @@ def portrayPDAgent(agent):
     :return: the portrayal dictionary
     """
     assert agent is not None
-    return {
+    portrayal = {
         "Shape": "rect",
         "w": 1,
         "h": 1,
@@ -14,5 +14,16 @@ def portrayPDAgent(agent):
         "Layer": 0,
         "x": agent.pos[0],
         "y": agent.pos[1],
-        "Color": "blue" if agent.cooperate else "red",
     }
+
+    if agent.is_cooperating:
+        portrayal["Color"] = "blue"
+
+    else:
+        portrayal["Color"] = "red"
+
+    if agent.is_manipulating == "True":
+        portrayal["Color"] = "brown"
+
+
+    return portrayal

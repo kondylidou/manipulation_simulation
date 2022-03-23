@@ -1,10 +1,11 @@
 from mesa import Agent
-
+import random
 
 class PDAgent(Agent):
     """Agent member of the iterated, spatial prisoner's dilemma model."""
 
-    def __init__(self, pos, model, starting_move=None):
+
+    def __init__(self, pos, initial_cooperation, initial_manipulation, model, starting_move=None):
         """
         Create a new Prisoner's Dilemma agent.
 
@@ -15,30 +16,34 @@ class PDAgent(Agent):
                            C(ooperating) or D(efecting). Otherwise, random.
         """
         super().__init__(pos, model)
-        self.manipulation = None
         self.pos = pos
         self.score = 0
+        self.manipulator = "False"
         if starting_move:
             self.move = starting_move
         else:
-            self.move = self.random.choice(["C", "D"])
+            ranNumber = random.randint(1, 100)
+            if ranNumber <= initial_cooperation:
+                self.move = "C"
+            else:
+                self.move = "D"
+                ranNumber2 = random.randint(1, 100)
+                if ranNumber2 <= initial_manipulation:
+                    self.manipulator = "True"
         self.next_move = None
 
     @property
-    def cooperate(self):
+    def is_cooperating(self):
         return self.move == "C"
 
+    @property
     def is_cooperating(self):
         if self.move == "C":
             return True
 
-    def manipulate(self):
-        if self.move == "D":
-            self.manipulation = True
-        else:
-            raise Exception(
-                f"A cooperator can't manipulate"
-            )
+    @property
+    def is_manipulating(self):
+        return self.manipulator
 
     def step(self):
         """Get the neighbors' moves, and change own move accordingly."""
