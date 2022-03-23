@@ -25,5 +25,4 @@ def portrayPDAgent(agent):
     if agent.is_manipulating == "True":
         portrayal["Color"] = "brown"
 
-
     return portrayal
