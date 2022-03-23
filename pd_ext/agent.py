@@ -1,11 +1,11 @@
 from mesa import Agent
-
+import random
 
 class PDAgent(Agent):
     """Agent member of the iterated, spatial prisoner's dilemma model."""
 
 
-    def __init__(self, pos, model, starting_move=None):
+    def __init__(self, pos, initial_cooperation, model, starting_move=None): #def __init__(self, pos, model, starting_move="C"):
         """
         Create a new Prisoner's Dilemma agent.
 
@@ -21,7 +21,11 @@ class PDAgent(Agent):
         if starting_move:
             self.move = starting_move
         else:
-            self.move = self.random.choice(["C", "D"])
+            ranNumber = random.randint(0, 100) 
+            if ranNumber < initial_cooperation:
+                self.move = "C"
+            else:
+                self.move = "D"
         self.next_move = None
 
     @property
