@@ -1,9 +1,9 @@
 from mesa import Agent
 import random
 
+
 class PDAgent(Agent):
     """Agent member of the iterated, spatial prisoner's dilemma model."""
-
 
     def __init__(self, pos, initial_cooperation, initial_manipulation, model, starting_move=None):
         """
@@ -66,9 +66,10 @@ class PDAgent(Agent):
         else:
             moves = [neighbor.move for neighbor in neighbors]
             # total number neighbors who cooperated
-            total_cooperators = [neighbor for neighbor in neighbors if neighbor.is_cooperating()]
-            if self.is_cooperating():
-                score = len(total_cooperators)
-            else:
-                score = self.model.defection_award * len(total_cooperators)
+            # total_cooperators = [neighbor for neighbor in neighbors if neighbor.is_cooperating()]
+
+            # if self.is_cooperating():
+            # score = len(total_cooperators)
+            # else:
+            # score = self.model.defection_award * len(total_cooperators)
         return sum(self.model.update_payoff()[(self.move, move)] for move in moves)
