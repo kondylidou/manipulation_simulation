@@ -1,3 +1,5 @@
+import random
+
 from mesa import Model
 from mesa.time import BaseScheduler, RandomActivation, SimultaneousActivation
 from mesa.space import SingleGrid
@@ -36,10 +38,13 @@ class PdGrid(Model):
         self.schedule_type = schedule_type
         self.schedule = self.schedule_types[self.schedule_type](self)
 
+        defecting_agents = []
         # Create agents
         for x in range(width):
             for y in range(height):
                 agent = PDAgent((x, y), self)
+                if agent.move == "D":
+                    defecting_agents.append(agent)
                 self.grid.place_agent(agent, (x, y))
                 self.schedule.add(agent)
 
@@ -51,8 +56,18 @@ class PdGrid(Model):
             }
         )
 
+        self.create_manipulation(defecting_agents)
         self.running = True
         self.datacollector.collect(self)
+
+    def create_manipulation(self, defecting_agents):
+        manipulators = random.choices(defecting_agents, k=int(self.initial_manipulation/100*len(defecting_agents)))
+        for agent in manipulators:
+            agent.manipulate()
+
+
+
+
 
     def update_payoff(self):
         # This dictionary holds the payoff for this agent,
