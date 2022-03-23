@@ -5,7 +5,7 @@ class PDAgent(Agent):
     """Agent member of the iterated, spatial prisoner's dilemma model."""
 
 
-    def __init__(self, pos, initial_cooperation, model, starting_move=None): #def __init__(self, pos, model, starting_move="C"):
+    def __init__(self, pos, initial_cooperation, initial_manipulation, model, starting_move=None): 
         """
         Create a new Prisoner's Dilemma agent.
 
@@ -18,19 +18,27 @@ class PDAgent(Agent):
         super().__init__(pos, model)
         self.pos = pos
         self.score = 0
+        self.manipulator = "False"
         if starting_move:
             self.move = starting_move
         else:
-            ranNumber = random.randint(0, 100) 
-            if ranNumber < initial_cooperation:
+            ranNumber = random.randint(1, 100) 
+            if ranNumber <= initial_cooperation:
                 self.move = "C"
             else:
                 self.move = "D"
+                ranNumber2 = random.randint(1, 100) 
+                if ranNumber2 <= initial_manipulation:
+                    self.manipulator = "True"
         self.next_move = None
 
     @property
     def isCooroperating(self):
         return self.move == "C"
+
+    @property
+    def isManipulating(self):
+        return self.manipulator
 
     def step(self):
         """Get the neighbors' moves, and change own move accordingly."""
