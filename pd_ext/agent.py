@@ -50,6 +50,9 @@ class PDAgent(Agent):
         neighbors = self.model.grid.get_neighbors(self.pos, True, include_center=True)
         best_neighbor = max(neighbors, key=lambda a: a.score)
         self.next_move = best_neighbor.move
+        if self.manipulator:
+            if self.next_move == "C":
+                self.manipulator = "False"
 
         if self.model.schedule_type != "Simultaneous":
             self.advance()
@@ -59,17 +62,9 @@ class PDAgent(Agent):
         self.score += self.increment_score()
 
     def increment_score(self):
-        score = 0
         neighbors = self.model.grid.get_neighbors(self.pos, True)
         if self.model.schedule_type == "Simultaneous":
             moves = [neighbor.next_move for neighbor in neighbors]
         else:
             moves = [neighbor.move for neighbor in neighbors]
-            # total number neighbors who cooperated
-            # total_cooperators = [neighbor for neighbor in neighbors if neighbor.is_cooperating()]
-
-            # if self.is_cooperating():
-            # score = len(total_cooperators)
-            # else:
-            # score = self.model.defection_award * len(total_cooperators)
         return sum(self.model.update_payoff()[(self.move, move)] for move in moves)
