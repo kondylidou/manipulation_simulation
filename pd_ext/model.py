@@ -17,8 +17,8 @@ class PdGrid(Model):
     defection_award = 1.6
 
     def __init__(
-            self, width=50, height=50, initial_cooperation=50, initial_manipulation=50, defection_award=1.6,
-            manipulation_capacity=50, schedule_type="Random", payoffs=None, seed=None
+            self, width=50, height=50, initial_cooperation=50, initial_manipulation=50, manipulators=None,
+            defection_award=1.6, manipulation_capacity=50, schedule_type="Random", payoffs=None, seed=None
     ):
         """
         Create a new Spatial Prisoners' Dilemma Model.
@@ -30,6 +30,7 @@ class PdGrid(Model):
         """
         self.initial_cooperation = initial_cooperation
         self.initial_manipulation = initial_manipulation
+        self.manipulators = []
         self.defection_award = defection_award
         self.manipulation_capacity = manipulation_capacity
         self.grid = SingleGrid(width, height, torus=True)
@@ -39,7 +40,7 @@ class PdGrid(Model):
         # Create agents
         for x in range(width):
             for y in range(height):
-                agent = PDAgent((x, y), initial_cooperation, initial_manipulation, self)
+                agent = PDAgent((x, y), initial_cooperation, initial_manipulation, self.manipulators, self)
                 self.grid.place_agent(agent, (x, y))
                 self.schedule.add(agent)
 

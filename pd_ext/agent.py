@@ -5,7 +5,7 @@ import random
 class PDAgent(Agent):
     """Agent member of the iterated, spatial prisoner's dilemma model."""
 
-    def __init__(self, pos, initial_cooperation, initial_manipulation, model, starting_move=None):
+    def __init__(self, pos, initial_cooperation, initial_manipulation, manipulators, model, starting_move=None):
         """
         Create a new Prisoner's Dilemma agent.
 
@@ -16,8 +16,10 @@ class PDAgent(Agent):
                            C(ooperating) or D(efecting). Otherwise, random.
         """
         super().__init__(pos, model)
+        self.manipulators = manipulators
         self.pos = pos
         self.score = 0
+        self.initial_manipulation = initial_manipulation
         self.manipulator = "False"
         if starting_move:
             self.move = starting_move
@@ -30,6 +32,7 @@ class PDAgent(Agent):
                 ranNumber2 = random.randint(1, 100)
                 if ranNumber2 <= initial_manipulation:
                     self.manipulator = "True"
+                    self.manipulators.append(self)
         self.next_move = None
 
     @property
@@ -50,9 +53,13 @@ class PDAgent(Agent):
         neighbors = self.model.grid.get_neighbors(self.pos, True, include_center=True)
         best_neighbor = max(neighbors, key=lambda a: a.score)
         self.next_move = best_neighbor.move
-        if self.manipulator:
-            if self.next_move == "C":
-                self.manipulator = "False"
+        if self.next_move == "C" and self.manipulator == "True":
+            self.manipulator = "False"
+            self.manipulators.remove(self)
+        if self.next_move == "D" and self.manipulator == "False" and best_neighbor.is_manipulating:
+            if len(self.manipulators) <= self.initial_manipulation:
+                self.manipulator = "True"
+                self.manipulators.append(self)
 
         if self.model.schedule_type != "Simultaneous":
             self.advance()
