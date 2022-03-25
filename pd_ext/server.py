@@ -2,7 +2,6 @@ from mesa.visualization.ModularVisualization import ModularServer
 from mesa.visualization.modules import CanvasGrid, ChartModule
 from mesa.visualization.UserParam import UserSettableParameter
 
-
 # Make a world that is 50x50, on a 500x500 display.
 from pd_ext.model import PdGrid
 from pd_ext.portrayal import portrayPDAgent
@@ -20,7 +19,7 @@ model_params = {
     "height": 50,
     "width": 50,
     "initial_cooperation": UserSettableParameter("slider", "Initial Cooperation", 50, 0, 100, 0.1),
-    "initial_manipulation": UserSettableParameter("slider", "Initial Manipulation", 50, 0, 100, 0.1),
+    "manipulation": UserSettableParameter("slider", "Manipulation", 50, 0, 100, 0.1),
     "defection_award": UserSettableParameter("slider", "Defection Award", 1.5, 0, 3, 0.1),
     "manipulation_capacity": UserSettableParameter("slider", "Manipulation Capacity", 4, 0, 8, 1),
 }

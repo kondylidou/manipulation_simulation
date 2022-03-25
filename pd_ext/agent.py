@@ -5,8 +5,8 @@ import random
 class PDAgent(Agent):
     """Agent member of the iterated, spatial prisoner's dilemma model."""
 
-    def __init__(self, pos, initial_cooperation, initial_manipulation, manipulators, manipulation_capacity,
-                 defection_award, model, starting_move=None):
+    def __init__(self, pos, initial_cooperation, manipulation, manipulators, defectors,
+                 cooperators, manipulation_capacity, defection_award, model, starting_move=None):
         """
         Create a new Prisoner's Dilemma agent.
 
@@ -18,9 +18,11 @@ class PDAgent(Agent):
         """
         super().__init__(pos, model)
         self.manipulators = manipulators
+        self.defectors = defectors
+        self.cooperators = cooperators
         self.pos = pos
         self.score = 0
-        self.initial_manipulation = initial_manipulation
+        self.manipulation = manipulation
         self.manipulation_capacity = manipulation_capacity
         self.defection_award = defection_award
         self.manipulator = "False"
@@ -30,10 +32,12 @@ class PDAgent(Agent):
             ranNumber = random.randint(1, 100)
             if ranNumber <= initial_cooperation:
                 self.move = "C"
+                self.cooperators.append(self)
             else:
                 self.move = "D"
+                self.defectors.append(self)
                 ranNumber2 = random.randint(1, 100)
-                if ranNumber2 <= initial_manipulation:
+                if ranNumber2 <= manipulation:
                     self.manipulator = "True"
                     self.manipulators.append(self)
         self.next_move = None
@@ -104,8 +108,11 @@ class PDAgent(Agent):
         if self.next_move == "C" and self.manipulator == "True":
             self.manipulator = "False"
             self.manipulators.remove(self)
+            print("removed", len(self.manipulators))
+            print("capacity", self.manipulation)
         if self.next_move == "D" and self.manipulator == "False" and best_neighbor.is_manipulating:
-            if len(self.manipulators) <= self.initial_manipulation:
+            print("here", len(self.manipulators))
+            if len(self.manipulators) <= int((self.manipulation / 100) * len(self.defectors)):
                 self.manipulator = "True"
                 self.manipulators.append(self)
         if self.model.schedule_type != "Simultaneous":
@@ -122,10 +129,3 @@ class PDAgent(Agent):
         else:
             moves = [neighbor.move for neighbor in neighbors]
         return sum(self.model.update_payoff()[(self.move, move)] for move in moves)
-
-    # def manipulate_neighbours(self):
-    # go through neighbor list
-    # get neighbour's next step (highest alpha)
-    # if manipulation capacity left
-    # if neighbor defecting and not manipulator
-    # set neighbor's next move to cooperate
