@@ -5,7 +5,7 @@ import random
 class PDAgent(Agent):
     """Agent member of the iterated, spatial prisoner's dilemma model."""
 
-    def __init__(self, pos, initial_cooperation, initial_manipulation, manipulators, model, starting_move=None):
+    def __init__(self, pos, initial_cooperation, initial_manipulation, manipulators, manipulation_capacity, defection_award, model, starting_move=None):
         """
         Create a new Prisoner's Dilemma agent.
 
@@ -20,6 +20,8 @@ class PDAgent(Agent):
         self.pos = pos
         self.score = 0
         self.initial_manipulation = initial_manipulation
+        self.manipulation_capacity = manipulation_capacity
+        self.defection_award = defection_award
         self.manipulator = "False"
         if starting_move:
             self.move = starting_move
@@ -44,6 +46,10 @@ class PDAgent(Agent):
         if self.move == "C":
             return True
 
+    @is_cooperating.setter #is_cooperating or move
+    def is_cooperating(self, value): #value or move?
+        self.move = value
+
     @property
     def is_manipulating(self):
         return self.manipulator
@@ -52,14 +58,32 @@ class PDAgent(Agent):
         """Get the neighbors' moves, and change own move accordingly."""
         neighbors = self.model.grid.get_neighbors(self.pos, True, include_center=True)
         best_neighbor = max(neighbors, key=lambda a: a.score)
-        self.next_move = best_neighbor.move
-        if self.next_move == "C" and self.manipulator == "True":
-            self.manipulator = "False"
-            self.manipulators.remove(self)
-        if self.next_move == "D" and self.manipulator == "False" and best_neighbor.is_manipulating:
-            if len(self.manipulators) <= self.initial_manipulation:
-                self.manipulator = "True"
-                self.manipulators.append(self)
+
+        if self.is_manipulating == "True":
+            neighbors_for_manipulation = neighbors
+            i = 0
+            while i < self.manipulation_capacity: #doesnt change during simulation even when slider moved 
+                for neighbor in neighbors_for_manipulation: #already changes neighbors!!!!!!
+                    if neighbor.move == "D" and neighbor.manipulator == "False":
+                        neighbor.move = "C" 
+                        i += 1
+                break
+            
+            if self.defection_award > 1:
+                self.next_move = "D"
+            else:
+                self.next_move = best_neighbor.move
+
+        else:
+            self.next_move = best_neighbor.move
+
+        #if self.next_move == "C" and self.manipulator == "True":
+            #self.manipulator = "False"
+            #self.manipulators.remove(self)
+        #if self.next_move == "D" and self.manipulator == "False" and best_neighbor.is_manipulating:
+            #if len(self.manipulators) <= self.initial_manipulation:
+                #self.manipulator = "True"
+                #self.manipulators.append(self)
 
         if self.model.schedule_type != "Simultaneous":
             self.advance()
@@ -75,3 +99,10 @@ class PDAgent(Agent):
         else:
             moves = [neighbor.move for neighbor in neighbors]
         return sum(self.model.update_payoff()[(self.move, move)] for move in moves)
+
+    #def manipulate_neighbours(self):
+        #go through neighbor list
+        #get neighbour's next step (highest alpha)
+        #if manipulation capacity left
+        #if neighbor defecting and not manipulator
+        #set neighbor's next move to cooperate

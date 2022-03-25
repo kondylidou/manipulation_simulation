@@ -21,8 +21,8 @@ model_params = {
     "width": 50,
     "initial_cooperation": UserSettableParameter("slider", "Initial Cooperation", 50, 0, 100, 0.1),
     "initial_manipulation": UserSettableParameter("slider", "Initial Manipulation", 50, 0, 100, 0.1),
-    "defection_award": UserSettableParameter("slider", "Defection Award", 1.6, 0, 3, 0.1),
-    "manipulation_capacity": UserSettableParameter("slider", "Manipulation Capacity", 50, 0, 100, 0.1),
+    "defection_award": UserSettableParameter("slider", "Defection Award", 1.5, 0, 3, 0.1),
+    "manipulation_capacity": UserSettableParameter("slider", "Manipulation Capacity", 4, 0, 8, 1),
 }
 
 server = ModularServer(PdGrid, [canvas_element, chart], "Prisoner's Dilemma", model_params)
