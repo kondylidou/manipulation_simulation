@@ -40,7 +40,8 @@ class PdGrid(Model):
         # Create agents
         for x in range(width):
             for y in range(height):
-                agent = PDAgent((x, y), initial_cooperation, initial_manipulation, self.manipulators, manipulation_capacity, defection_award, self)
+                agent = PDAgent((x, y), initial_cooperation, initial_manipulation, self.manipulators,
+                                manipulation_capacity, defection_award, self)
                 self.grid.place_agent(agent, (x, y))
                 self.schedule.add(agent)
 
