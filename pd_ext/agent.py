@@ -108,10 +108,10 @@ class PDAgent(Agent):
         if self.next_move == "C" and self.manipulator == "True":
             self.manipulator = "False"
             self.manipulators.remove(self)
-            print("removed", len(self.manipulators))
-            print("capacity", self.manipulation)
+            #print("removed", len(self.manipulators))
+            #print("capacity", self.manipulation)
         if self.next_move == "D" and self.manipulator == "False" and best_neighbor.is_manipulating:
-            print("here", len(self.manipulators))
+            #print("here", len(self.manipulators))
             if len(self.manipulators) <= int((self.manipulation / 100) * len(self.defectors)):
                 self.manipulator = "True"
                 self.manipulators.append(self)

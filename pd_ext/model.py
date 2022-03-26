@@ -51,6 +51,9 @@ class PdGrid(Model):
             {
                 "Cooperating_Agents": lambda m: len(
                     [a for a in m.schedule.agents if a.move == "C"]
+                ),
+                "Manipulating_Agents": lambda m: len(
+                    [a for a in m.schedule.agents if a.is_manipulating == "True"]
                 )
             }
         )

@@ -7,7 +7,7 @@ from pd_ext.model import PdGrid
 from pd_ext.portrayal import portrayPDAgent
 
 canvas_element = CanvasGrid(portrayPDAgent, 50, 50, 500, 500)
-chart = ChartModule([{"Label": "Cooperating_Agents", "Color": "Black"}], data_collector_name='datacollector')
+chart = ChartModule([{"Label": "Cooperating_Agents", "Color": "Black"}, {"Label": "Manipulating_Agents", "Color": "Red"}], data_collector_name='datacollector')
 
 model_params = {
     "schedule_type": UserSettableParameter(
