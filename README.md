@@ -55,9 +55,5 @@ In the subsequent round, the patch will set its old-cooperate to be the strategy
 
 ## How to use it
 
-Decide what percentage of patches should cooperate and what amount should be able to manipulate at the initial stage of the simulation and change the INITIAL-COOPERATION and the INITIAL-MANIPULATION sliders to match what you would like. Next, determine the DEFECTION-AWARD multiple (mentioned as alpha in the payoff matrix above) for defecting or not cooperating. The Defection-Award multiple varies from range of 0 to 3. Furthermore, determine the MANIPULATION-CAPACITY for manipulation other individuals. Press START to make the patches interact with their eight neighboring patches.
-
-
-##Question
-Which is better? A wolrd where manipulators and manipulated exist following Machiavelli's perspective, or a world where every individual cooperates thinking about the common benefit following Aristotele's perspective?
+Decide what percentage of patches should cooperate and what percentage of the defectors should be able to manipulate at the initial stage of the simulation and change the INITIAL-COOPERATION and the INITIAL-MANIPULATION sliders to match what you would like. Next, determine the DEFECTION-AWARD multiple (mentioned as alpha in the payoff matrix above) for defecting or not cooperating. The Defection-Award multiple varies from range of 0 to 3. Furthermore, determine the MANIPULATION-CAPACITY for the amount of neighbouring individuals, which should be manipulated. Press START to make the patches interact with their eight neighboring patches.
 
