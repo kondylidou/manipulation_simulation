@@ -41,7 +41,8 @@ class PdGrid(Model):
         self.schedule = self.schedule_types[self.schedule_type](self)
         timestr = time.strftime("%Y%m%d-%H%M%S")
         self.file_link = 'CSV/' + timestr + '.csv'
-        print(self.file_link)
+        #step_nr = 1
+        #self.step_nr = step_nr
 
         # Create agents
         for x in range(width):

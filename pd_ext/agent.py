@@ -6,7 +6,7 @@ class PDAgent(Agent):
     """Agent member of the iterated, spatial prisoner's dilemma model."""
 
     def __init__(self, pos, initial_cooperation, manipulation, manipulators, defectors,
-                 cooperators, manipulation_capacity, defection_award, model, starting_move=None):
+                 cooperators, manipulation_capacity, defection_award, model, step_nr=0, starting_move=None):
         """
         Create a new Prisoner's Dilemma agent.
 
@@ -26,6 +26,8 @@ class PDAgent(Agent):
         self.manipulation_capacity = manipulation_capacity
         self.defection_award = defection_award
         self.manipulator = "False"
+        self.step_nr = step_nr
+
         if starting_move:
             self.move = starting_move
         else:
@@ -72,16 +74,26 @@ class PDAgent(Agent):
         # or the capacity is lower
         manipulate_all = False
         # next score reached without manipulation
-        next_score = best_neighbor.get_score
+        next_score = best_neighbor.get_score / self.step_nr
+        #print (self.step_nr)
+        #print (next_score)
+        #best_neighbor_score = best_neighbor.neighbors
         neighbors_to_manipulate = [neighbor for neighbor in neighbors
                                    if neighbor.is_defecting and neighbor.manipulator == "False"]
 
         if self.manipulation_capacity > len(neighbors_to_manipulate):
             # possible score reached after manipulation
+            #pos_score = self.score
             pos_score = self.defection_award * len(neighbors_to_manipulate)
             manipulate_all = True
         else:
+            #pos_score = self.score
             pos_score = self.defection_award * self.manipulation_capacity
+
+        print("next_score:") 
+        print(next_score)
+        print("pos_score:")
+        print(pos_score)
 
         if pos_score > next_score:
             # possible score is greater so manipulate the neighbors
@@ -99,6 +111,7 @@ class PDAgent(Agent):
 
     def step(self):
         """Get the neighbors' moves, and change own move accordingly."""
+        self.step_nr += 1
         neighbors = self.model.grid.get_neighbors(self.pos, True, include_center=True)
         best_neighbor = max(neighbors, key=lambda a: a.score)
         if self.is_manipulating == "True":
