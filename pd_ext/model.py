@@ -3,6 +3,7 @@ from mesa.time import BaseScheduler, RandomActivation, SimultaneousActivation
 from mesa.space import SingleGrid
 from mesa.datacollection import DataCollector
 from pd_ext.agent import PDAgent
+import time
 
 
 class PdGrid(Model):
@@ -38,6 +39,9 @@ class PdGrid(Model):
         self.grid = SingleGrid(width, height, torus=True)
         self.schedule_type = schedule_type
         self.schedule = self.schedule_types[self.schedule_type](self)
+        timestr = time.strftime("%Y%m%d-%H%M%S")
+        self.file_link = 'CSV/' + timestr + '.csv'
+        print(self.file_link)
 
         # Create agents
         for x in range(width):
@@ -51,6 +55,9 @@ class PdGrid(Model):
             {
                 "Cooperating_Agents": lambda m: len(
                     [a for a in m.schedule.agents if a.move == "C"]
+                ),
+                "Defecting_Agents": lambda m: len(
+                    [a for a in m.schedule.agents if a.move == "D"]
                 ),
                 "Manipulating_Agents": lambda m: len(
                     [a for a in m.schedule.agents if a.is_manipulating == "True"]
@@ -70,6 +77,8 @@ class PdGrid(Model):
         self.schedule.step()
         # collect data
         self.datacollector.collect(self)
+        export_array = self.datacollector.get_model_vars_dataframe()
+        export_array.to_csv(self.file_link)
 
     def run(self, n):
         """Run the model for n steps."""
